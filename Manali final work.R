@@ -1,6 +1,3 @@
-setwd("C:/Users/abira/OneDrive/Desktop/MS thesis 2023 datas and papers/Final Thesis Analysis")
-
-
 library("png")
 library("vegan")
 library(wesanderson)
@@ -12,25 +9,11 @@ library(tidyverse)
 library(hrbrthemes)
 library(viridis)
 
-
-
-## Locations v/s Number of nests 
+## Locations v/s Number of nests ## 
 library(readxl)
 NN <- read_excel("C:/Users/abira/OneDrive/Desktop/MS thesis 2023 datas and papers/Final Thesis Analysis/MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
                                                            sheet = "Nest number")
 View(NN)
-library(ggplot2)
-library("png")
-library("vegan")
-library(scales)
-library(tidyverse)
-library(hrbrthemes)
-library(viridis)
-#cbPalette <- c()
-#plot
-#scale_fill_brewer(palette = "RdYlBu")
-#scale_fill_viridis(discrete = TRUE)
-#scale_fill_manual(values = c("#C7F9EE","#6DF0D2","#1DE4BD","#1AC9E6","#1AC9E6","#19AADE","#176BA0"))
 
 NNP<-ggplot(NN,aes(fill=Species, y=Number, x=Location))+
   geom_bar(position = "stack", stat = "identity")
@@ -39,11 +22,8 @@ NNP + scale_color_viridis(discrete = TRUE)+
   theme_ipsum()+
   ylab("Number of nests")+
   xlab("Locations")+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#C7F9EE","#6DF0D2","#1DE4BD","#66FFFF","#1AC9E6","#19AADE","#176BA0"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,35,by=2))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
   theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.x = element_text(size=9, angle=0,family ="TT Times New Roman",color = "black" ,face = "bold"),
@@ -54,48 +34,36 @@ NNP + scale_color_viridis(discrete = TRUE)+
         legend.background = (element_rect(colour = "#142459")),
         legend.text = element_text(color ="#000000",size = 9,face = "bold.italic", family = "TT Times New Roman"))
 
-### Anthropization
+### Degree of Anthropization at each location ###
 library(plot3D)
 library(RColorBrewer)
 library(ggplot2)
-
-
 library(readxl)
 AA <- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
                                                            sheet = "anthropization")
 View(AA)
-
-
 library(extrafont)
 AAP <-ggplot(AA, aes(fill=Location, x=Location,y=sum))+
   geom_bar(stat = "identity")
-
 AAP+ ylab("Degree of Human Interference")+
   xlab("Locations")+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#6DF0D2","#1DE4BD","#66FFFF","#1AC9E6","#19AADE","#176BA0"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,28,by=2))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
-  theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.x = element_text(size=9, angle=0,family ="TT Times New Roman" ),
         panel.background = element_rect(fill = "#FFFFFF",colour = "#142459",size = 2))
-        #legend.text = element_text(color ="#000000",size = 9,face = "italic", family = "TT Times New Roman"))
+       
 
-
-
-#### correlation of human interference and myrmica species richness of locations chosen
+#### correlation of human interference and myrmica species richness of locations chosen ####
 library(readxl)
 HR<- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
                                                            sheet = "anthropization")
 View(HR)
-library(ggplot2)
 library(dplyr)
 library(patchwork)
-library(hrbrthemes)
 
-## Most basic line chart (re-ordering in ascending order)
+
+## Most basic line chart (re-ordering in ascending order) ##
 HI<- ggplot(HR,aes(x = reorder(Location, +Human_interference), y=Human_interference))+
   geom_bar(color="#1AC9E6",fill="#66FFFF",  size=1, stat = "identity")
 HR<- HI +  geom_line(aes(x = Location, y=Myrmica_Species_richness), stat = "identity", color="#142459", size=2)
@@ -119,11 +87,8 @@ RP + scale_color_viridis(discrete = TRUE)+
   theme_ipsum()+
   ylab("Proportion of recruitment strategies followed by Myrmica species")+
   xlab("Myrmica species")+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#66FFFF","#1AC9E6","#19AADE","#176BA0"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,36,by=4))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
   theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.y = element_text(size=9,face = "bold.italic",color = "black", angle=0,family ="TT Times New Roman" ),
@@ -136,7 +101,6 @@ RP + scale_color_viridis(discrete = TRUE)+
 
 ######## Bait selection ######
 
-####### 
 library(readxl)
 B <- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
                                                            sheet = "Bait")
@@ -148,11 +112,8 @@ BPP <-BP + scale_color_viridis(discrete = TRUE)+
   theme_ipsum()+
   ylab("Proportion of Myrmica species choosing certain food resource")+
   xlab("Myrmica species")+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#19AADE","#176BA0","#142459"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,1,by=0.25))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
   theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.y = element_text(size=9,face = "bold.italic",color = "black", angle=0,family ="TT Times New Roman" ),
@@ -166,10 +127,11 @@ BPP+ coord_flip()
 
   
 ###########        ########        ##########
+
 ################### ANOVA TEST  #####################
 
 
-#### Myrmica aimonissabaudiae
+#### Myrmica aimonissabaudiae ####
 
 library(readxl)
 MAB<- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
@@ -230,7 +192,7 @@ TukeyHSD(MWBA)
 plot(TukeyHSD(MWBA, conf.level = .95), las=1)
 
 
-##### bait preference plot for each Myrmica species
+##### bait preference plot for each Myrmica species #####
 
 library(readxl)
 BPP<- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
@@ -246,11 +208,8 @@ BPPP+ ylab("Proportion of colonies choosing bait")+
   xlab("Myrmica species")+
   scale_color_viridis(discrete = TRUE)+
   theme_ipsum()+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#6DF0D2","#1DE4BD","#66FFFF","#1AC9E6","#19AADE","#176BA0"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,1.05,by=0.15))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
   theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.y = element_text(size=9,face = "bold.italic",color = "black", angle=0,family ="TT Times New Roman" ),
@@ -262,14 +221,14 @@ BPPP+ ylab("Proportion of colonies choosing bait")+
         legend.text = element_text(color ="#000000",size = 7.3,face = "bold", family = "TT Times New Roman"))
 
 ########### Foraging ###########
-###### month wise activity of species on foraging ##############
+###### month-wise activity of species on foraging ##############
 
 library(readxl)
 FHS<- read_excel("MS Thesis 2022-23 field collection _ Manali (2).xlsx", 
                                                            sheet = "Foraging activity across season")
 View(FHS)
 
-## ANOVA and posthoc test
+## ANOVA and posthoc test (Tukey HSD) ##
 
 
 # hecate
@@ -315,11 +274,8 @@ FASP+ ylab("Proportion of foragers")+
   xlab("Myrmica species")+
   scale_color_viridis(discrete = TRUE)+
   theme_ipsum()+
-  #scale_fill_brewer(palette = "PuRd")+
   scale_fill_manual(values = c("#6DF0D2","#1DE4BD","#66FFFF"))+
-  #scale_fill_manual(values = c("#FCEAE6","#F0A58F","#EA7369","#EB548C","#DB4CB2","#AF4BCE","#7D3AC1"))+
   scale_y_continuous(breaks = seq(0,1,by=0.15))+
-  #scale_fill_discrete("Species",labels=c(expression(italic("Myrmica aimonissabaudiae")),expression(italic("Myrmica cachmiriensis")),expression(italic("Myrmica hecate")),expression(italic("Myrmica inezae")),expression(italic("Myrmica sp.")),expression(italic("Myrmica wardi")),"Non-myrmica"))+
   theme(axis.title.x.bottom = element_text(color="#142459",hjust = 0.5, size=10, face="bold",family = "TT Times New Roman"),
         axis.title.y = element_text(color="#142459", size=10,hjust = 0.5, face="bold",family ="TT Times New Roman"),
         axis.text.y = element_text(size=9,face = "bold.italic",color = "black", angle=0,family ="TT Times New Roman" ),
@@ -329,8 +285,3 @@ FASP+ ylab("Proportion of foragers")+
         legend.title.align = 0.5,
         legend.background = (element_rect(colour = "#142459")),
         legend.text = element_text(color ="#000000",size = 7.3,face = "bold", family = "TT Times New Roman"))
-
-
-
-citation()
-
